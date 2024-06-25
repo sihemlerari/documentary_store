@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'router.dart';
 import 'theme/dark_theme.dart';
 
 class App extends StatelessWidget {
@@ -11,6 +12,7 @@ class App extends StatelessWidget {
       title: 'Documentary Store',
       debugShowCheckedModeBanner: false,
       theme: darkTheme,
+      routerConfig: router,
     );
   }
 }
