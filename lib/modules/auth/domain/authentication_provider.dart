@@ -4,4 +4,5 @@ abstract interface class GoogleAuthenticationProvider implements AuthenticationP
 
 abstract interface class AuthenticationProvider {
   Future<OAuthenticationCredential?> signIn();
+  Future<void> signOut();
 }

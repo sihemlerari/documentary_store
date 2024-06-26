@@ -3,24 +3,28 @@ import 'package:documentary_store/modules/auth/domain/customer.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'doubles/authentication_gateway_stub.dart';
+import 'doubles/google_authentication_provider_spy.dart';
 
 void main() {
   late AuthenticationGatewayStub authenticationGateway;
+  late GoogleAuthenticationProviderSpy googleAuthenticationProvider;
   late SignOut signOut;
 
-  const alice = Customer(id: 'aliceId', email: 'alice@gmail.dz');
+  const bob = Customer(id: 'bobId', email: 'bob@gmail.dz');
 
   setUp(() {
     authenticationGateway = AuthenticationGatewayStub();
-    signOut = SignOut(authenticationGateway);
+    googleAuthenticationProvider = GoogleAuthenticationProviderSpy();
+    signOut = SignOut(authenticationGateway, googleAuthenticationProvider);
   });
 
   test('should successfully sign out', () async {
-    authenticationGateway.setCurrentCustomer(alice);
+    authenticationGateway.setCurrentCustomer(bob);
 
     await signOut();
 
     final currentCustomer = await authenticationGateway.currentCustomer();
     expect(currentCustomer, isNull);
+    expect(googleAuthenticationProvider.signOutCalled, isTrue);
   });
 }

@@ -11,4 +11,9 @@ class GoogleAuthenticationProviderStub implements GoogleAuthenticationProvider {
 
   @override
   Future<OAuthenticationCredential?> signIn() async => _credential;
+
+  @override
+  Future<void> signOut() async {
+    _credential = null;
+  }
 }
