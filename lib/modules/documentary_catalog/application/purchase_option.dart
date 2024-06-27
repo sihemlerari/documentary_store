@@ -1,0 +1,4 @@
+enum PurchaseOption {
+  rent,
+  buy,
+}
