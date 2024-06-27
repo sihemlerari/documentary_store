@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'checkout/checkout_screen.dart';
+import 'core/auth/auth_guard.dart';
 import 'documentaries/documentary_detail/documentary_details_screen.dart';
 import 'documentaries/home/home_screen.dart';
 import 'login/login_screen.dart';
@@ -34,14 +35,14 @@ final router = GoRouter(
             GoRoute(
               name: Routes.checkout.name,
               path: 'checkout',
-              builder: (context, state) => const CheckoutScreen(),
+              builder: (context, state) => const AuthGuard(child: CheckoutScreen()),
             ),
           ],
         ),
         GoRoute(
           name: Routes.orders.name,
           path: 'orders',
-          builder: (context, state) => const OrdersScreen(),
+          builder: (context, state) => const AuthGuard(child: OrdersScreen()),
         ),
         GoRoute(
           name: Routes.login.name,
