@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'checkout/checkout_screen.dart';
 import 'core/auth/auth_guard.dart';
-import 'documentaries/documentary_detail/documentary_details_screen.dart';
+import 'documentaries/documentary_detail/documentary_detail_screen.dart';
 import 'documentaries/home/home_screen.dart';
 import 'login/login_screen.dart';
 import 'orders/orders_screen.dart';
@@ -28,7 +28,7 @@ final router = GoRouter(
         GoRoute(
           name: Routes.documentary.name,
           path: 'documentary/:id',
-          builder: (context, state) => DocumentaryDetailsScreen(
+          builder: (context, state) => DocumentaryDetailScreen(
             documentaryId: state.pathParameters['id']!,
           ),
           routes: [

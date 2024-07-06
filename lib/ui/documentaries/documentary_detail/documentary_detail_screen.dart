@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class DocumentaryDetailsScreen extends StatelessWidget {
+class DocumentaryDetailScreen extends StatelessWidget {
   final String documentaryId;
 
-  const DocumentaryDetailsScreen({
+  const DocumentaryDetailScreen({
     super.key,
     required this.documentaryId,
   });
