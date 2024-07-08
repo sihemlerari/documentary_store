@@ -1,8 +1,9 @@
 import 'package:documentary_store/modules/documentary_catalog/application/documentary_summary.dart';
-import 'package:documentary_store/modules/documentary_catalog/application/ports/documentary_summary_data_source.dart';
 import 'package:documentary_store/modules/documentary_catalog/application/purchase_option.dart';
 import 'package:documentary_store/modules/documentary_catalog/application/usecases/get_documentaries.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'doubles/documentary_summary_data_source_stub.dart';
 
 void main() {
   late GetDocumentaries getDocumentaries;
@@ -46,17 +47,4 @@ void main() {
     expect(result, hasLength(2));
     expect(result, documentaries);
   });
-}
-
-class DocumentarySummaryDataSourceStub implements DocumentarySummaryDataSource {
-  List<DocumentarySummary> _documentaries = [];
-
-  void loadDocumentaries(List<DocumentarySummary> documentaries) {
-    _documentaries = documentaries;
-  }
-
-  @override
-  Future<List<DocumentarySummary>> documentaries() async {
-    return _documentaries;
-  }
 }
