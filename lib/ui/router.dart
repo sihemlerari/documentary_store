@@ -35,7 +35,10 @@ final router = GoRouter(
             GoRoute(
               name: Routes.checkout.name,
               path: 'checkout',
-              builder: (context, state) => const AuthGuard(child: CheckoutScreen()),
+              builder: (context, state) => AuthGuard(
+                  child: CheckoutScreen(
+                documentaryId: state.pathParameters['id']!,
+              )),
             ),
           ],
         ),

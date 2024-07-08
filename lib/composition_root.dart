@@ -14,8 +14,10 @@ import 'modules/documentary_catalog/application/ports/documentary_detail_data_so
 import 'modules/documentary_catalog/application/ports/documentary_summary_data_source.dart';
 import 'modules/documentary_catalog/application/usecases/get_documentaries.dart';
 import 'modules/documentary_catalog/application/usecases/get_documentary_detail.dart';
+import 'modules/documentary_catalog/application/usecases/get_documentary_summary.dart';
 import 'modules/documentary_catalog/infrastructure/documentary_detail_data_source_impl.dart';
 import 'modules/documentary_catalog/infrastructure/documentary_summary_data_source_impl.dart';
+import 'ui/checkout/widgets/order_summary/cubit/order_summary_cubit.dart';
 import 'ui/core/auth/cubit/auth_cubit.dart';
 import 'ui/documentaries/documentary_detail/cubit/documentary_detail_cubit.dart';
 import 'ui/documentaries/home/cubit/documentaries_cubit.dart';
@@ -31,6 +33,7 @@ void configureDependencies() {
       ));
   getIt.registerFactory(() => DocumentariesCubit(getIt<GetDocumentaries>()));
   getIt.registerFactory(() => DocumentaryDetailCubit(getIt<GetDocumentaryDetail>()));
+  getIt.registerFactory(() => OrderSummaryCubit(getIt<GetDocumentarySummary>()));
 
   // Use cases
   getIt.registerLazySingleton(() => GetCurrentCustomer(getIt<AuthenticationGateway>()));
@@ -45,6 +48,7 @@ void configureDependencies() {
 
   getIt.registerLazySingleton(() => GetDocumentaries(getIt<DocumentarySummaryDataSource>()));
   getIt.registerLazySingleton(() => GetDocumentaryDetail(getIt<DocumentaryDetailDataSource>()));
+  getIt.registerLazySingleton(() => GetDocumentarySummary(getIt<DocumentarySummaryDataSource>()));
 
   // Repositories, Gateways & Data sources
   getIt.registerLazySingleton<AuthenticationGateway>(() => AuthenticationGatewayImpl(
