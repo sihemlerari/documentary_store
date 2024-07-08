@@ -18,16 +18,16 @@ class AuthGuard extends StatelessWidget {
     final currentPath = GoRouter.of(context).routeInformationProvider.value.uri.path;
 
     return BlocBuilder<AuthCubit, AuthState>(
-      builder: (context, state) {
-        return Guard(
-          canActivate: state.isAuthenticated,
-          child: child,
-          onRedirect: (context) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              context.pushReplacement('/login?goto=$currentPath');
-            });
-          },
-        );
+      builder: (context, state) => switch (state) {
+        AuthInitial() => const Center(child: CircularProgressIndicator()),
+        Authenticated() || Unauthenticated() => Guard(
+            canActivate: state.isAuthenticated,
+            child: child,
+            onRedirect: (context) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                context.pushReplacement('/login?goto=$currentPath');
+              });
+            })
       },
     );
   }
