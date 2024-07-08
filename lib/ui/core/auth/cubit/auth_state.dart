@@ -1,41 +1,50 @@
 part of 'auth_cubit.dart';
 
-class AuthState {
+sealed class AuthState {
+  const AuthState();
+
+  bool get isAuthenticated;
+}
+
+final class AuthInitial extends AuthState {
+  const AuthInitial();
+
+  @override
+  bool get isAuthenticated => false;
+}
+
+final class Authenticated extends AuthState {
   final User user;
 
-  const AuthState(this.user);
-
-  AuthState.authenticated(String id, String email) : this(AuthUser(id: id, email: email));
-
-  const AuthState.unauthenticated() : this(const AnonymousUser());
-
-  bool get isAuthenticated => user is AuthUser;
+  const Authenticated(this.user);
 
   @override
-  bool operator ==(covariant AuthState other) {
-    if (identical(this, other)) return true;
+  bool get isAuthenticated => true;
+}
 
-    return other.user == user;
-  }
+final class Unauthenticated extends AuthState {
+  const Unauthenticated();
 
   @override
-  int get hashCode => user.hashCode;
+  bool get isAuthenticated => false;
 }
 
-abstract class User {
-  const User();
-}
-
-class AuthUser extends User {
+class User {
   final String id;
   final String email;
 
-  const AuthUser({
+  const User({
     required this.id,
     required this.email,
   });
-}
 
-class AnonymousUser extends User {
-  const AnonymousUser();
+  @override
+  bool operator ==(covariant User other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id && other.email == email;
+  }
+
+  @override
+  int get hashCode => id.hashCode ^ email.hashCode;
 }

@@ -15,24 +15,24 @@ class AuthCubit extends Cubit<AuthState> {
     this._getCurrentCustomer,
     this._signInWithGoogle,
     this._signOut,
-  ) : super(const AuthState.unauthenticated());
+  ) : super(const AuthInitial());
 
-  void checkAuthentication() async {
+  Future<void> checkAuthentication() async {
     final customer = await _getCurrentCustomer();
     if (customer != null) {
-      emit(AuthState.authenticated(customer.id, customer.email));
+      emit(Authenticated(User(id: customer.id, email: customer.email)));
     } else {
-      emit(const AuthState.unauthenticated());
+      emit(const Unauthenticated());
     }
   }
 
-  void signInWithGoogle() async {
+  Future<void> signInWithGoogle() async {
     await _signInWithGoogle();
     checkAuthentication();
   }
 
-  void signOut() async {
+  Future<void> signOut() async {
     await _signOut();
-    emit(const AuthState.unauthenticated());
+    emit(const Unauthenticated());
   }
 }
