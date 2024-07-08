@@ -26,6 +26,17 @@ class DocumentarySummaryDataSourceImpl
     });
   }
 
+  @override
+  Future<DocumentarySummary?> documentaryById(String documentaryId) {
+    return tryOperation(() async {
+      final doc = await _firestore.collection('documentaries').doc(documentaryId).get();
+      final map = doc.data();
+      if (map == null) return null;
+
+      return _toViewModel(DocumentaryPersisted.fromMap(map, doc.id));
+    });
+  }
+
   DocumentarySummary _toViewModel(DocumentaryPersisted persisted) {
     final purchaseOption = switch (persisted.purchaseOptionDetails.purchaseOption) {
       PurchaseOptionPersisted.rent => PurchaseOption.rent,
