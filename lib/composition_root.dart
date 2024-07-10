@@ -17,10 +17,14 @@ import 'modules/documentary_catalog/application/usecases/get_documentary_detail.
 import 'modules/documentary_catalog/application/usecases/get_documentary_summary.dart';
 import 'modules/documentary_catalog/infrastructure/documentary_detail_data_source_impl.dart';
 import 'modules/documentary_catalog/infrastructure/documentary_summary_data_source_impl.dart';
+import 'modules/orders/application/ports/order_summary_data_source.dart';
+import 'modules/orders/application/usecases/get_orders.dart';
+import 'modules/orders/infrastructure/order_summary_data_source_impl.dart';
 import 'ui/checkout/widgets/order_summary/cubit/order_summary_cubit.dart';
 import 'ui/core/auth/cubit/auth_cubit.dart';
 import 'ui/documentaries/documentary_detail/cubit/documentary_detail_cubit.dart';
 import 'ui/documentaries/home/cubit/documentaries_cubit.dart';
+import 'ui/orders/cubit/orders_cubit.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -34,6 +38,7 @@ void configureDependencies() {
   getIt.registerFactory(() => DocumentariesCubit(getIt<GetDocumentaries>()));
   getIt.registerFactory(() => DocumentaryDetailCubit(getIt<GetDocumentaryDetail>()));
   getIt.registerFactory(() => OrderSummaryCubit(getIt<GetDocumentarySummary>()));
+  getIt.registerFactory(() => OrdersCubit(getIt<GetOrders>()));
 
   // Use cases
   getIt.registerLazySingleton(() => GetCurrentCustomer(getIt<AuthenticationGateway>()));
@@ -50,6 +55,8 @@ void configureDependencies() {
   getIt.registerLazySingleton(() => GetDocumentaryDetail(getIt<DocumentaryDetailDataSource>()));
   getIt.registerLazySingleton(() => GetDocumentarySummary(getIt<DocumentarySummaryDataSource>()));
 
+  getIt.registerLazySingleton(() => GetOrders(getIt<OrderSummaryDataSource>()));
+
   // Repositories, Gateways & Data sources
   getIt.registerLazySingleton<AuthenticationGateway>(() => AuthenticationGatewayImpl(
         getIt<FirebaseAuth>(),
@@ -62,6 +69,10 @@ void configureDependencies() {
         getIt<FirebaseFirestore>(),
       ));
   getIt.registerLazySingleton<DocumentaryDetailDataSource>(() => DocumentaryDetailDataSourceImpl(
+        getIt<FirebaseFirestore>(),
+      ));
+
+  getIt.registerLazySingleton<OrderSummaryDataSource>(() => OrderSummaryDataSourceImpl(
         getIt<FirebaseFirestore>(),
       ));
 
