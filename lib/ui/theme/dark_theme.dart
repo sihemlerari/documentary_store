@@ -20,6 +20,7 @@ ThemeData darkTheme = ThemeData(
     backgroundColor: Colors.white,
     foregroundColor: primaryColor,
   ),
+  disabledColor: Colors.grey[400],
   appBarTheme: appBarTheme(),
   textTheme: textTheme(),
   elevatedButtonTheme: elevatedButtonTheme(),
