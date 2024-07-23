@@ -1,6 +1,6 @@
-import '../../../../../modules/documentary_catalog/application/documentary_summary.dart';
-import '../../../../../modules/documentary_catalog/application/usecases/get_documentary_summary.dart';
-import '../../../../core/base_cubit.dart';
+import '../../../../modules/documentary_catalog/application/documentary_summary.dart';
+import '../../../../modules/documentary_catalog/application/usecases/get_documentary_summary.dart';
+import '../../../core/base_cubit.dart';
 
 part 'order_summary_state.dart';
 
