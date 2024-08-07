@@ -6,7 +6,7 @@ class CreatePaymentIntent {
 
   CreatePaymentIntent(this._paymentIntentProvider);
 
-  Future<PaymentIntent> call(double amount, String currency) {
-    return _paymentIntentProvider.createPaymentIntent(amount, currency);
+  Future<PaymentIntent> call(String documentaryId, String currency) {
+    return _paymentIntentProvider.createPaymentIntent(documentaryId, currency);
   }
 }
