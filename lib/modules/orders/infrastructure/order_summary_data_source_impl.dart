@@ -28,10 +28,12 @@ class OrderSummaryDataSourceImpl with FirestoreOperationMixin implements OrderSu
   }
 
   OrderSummary _toViewModel(OrderPersisted persisted) {
+    final expirationDate = persisted.expirationDate;
     return OrderSummary(
       id: persisted.id,
       documentaryName: persisted.documentary.name,
       purchaseDate: persisted.purchaseDate,
+      isExpired: expirationDate.isExpired(DateTime.now()),
     );
   }
 }

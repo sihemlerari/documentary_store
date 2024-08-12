@@ -10,9 +10,24 @@ void main() {
 
   const aliceId = 'aliceId';
   final List<OrderSummary> orders = [
-    OrderSummary(id: '1', documentaryName: 'Citizenfour', purchaseDate: DateTime(2024, 1, 1)),
-    OrderSummary(id: '2', documentaryName: 'Senna', purchaseDate: DateTime(2024, 1, 2)),
-    OrderSummary(id: '3', documentaryName: 'Inside Job', purchaseDate: DateTime(2024, 1, 3)),
+    OrderSummary(
+      id: '1',
+      documentaryName: 'Citizenfour',
+      purchaseDate: DateTime(2024, 1, 1),
+      isExpired: false,
+    ),
+    OrderSummary(
+      id: '2',
+      documentaryName: 'Senna',
+      purchaseDate: DateTime(2024, 1, 2),
+      isExpired: true,
+    ),
+    OrderSummary(
+      id: '3',
+      documentaryName: 'Inside Job',
+      purchaseDate: DateTime(2024, 1, 3),
+      isExpired: false,
+    ),
   ];
 
   setUp(() {

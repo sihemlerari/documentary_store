@@ -32,7 +32,7 @@ class OrderList extends StatelessWidget {
                     color: Theme.of(context).colorScheme.tertiary,
                     borderRadius: BorderRadius.circular(Sizes.s8),
                   ),
-                  child: const Text('expired'),
+                  child: order.isExpired ? const Text('Expired') : const SizedBox.shrink(),
                 ),
               ),
             ],
