@@ -5,9 +5,7 @@ import {
   onCall,
 } from "firebase-functions/v2/https";
 import { getDocumentaryBy } from "../../documentaries/getDocumentaryBy";
-
-// TODO: use a real-time exchange rate API
-const USD_TO_DZD_RATE = 134.5;
+import { getUsdToDzdRate } from "./getUsdToDzdRate";
 
 interface CreateCheckoutSessionParams {
   documentaryId: string;
@@ -63,7 +61,7 @@ async function processAmount(documentaryId: string): Promise<number> {
 }
 
 function convertUsdToDzd(usdAmount: number): number {
-  return Math.round(usdAmount * USD_TO_DZD_RATE);
+  return Math.round(usdAmount * getUsdToDzdRate());
 }
 
 async function createCheckoutSession(
