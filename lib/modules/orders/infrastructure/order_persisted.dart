@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'expiration_date.dart';
+import 'timestamp_extension.dart';
+
 class OrderPersisted {
   final String id;
   final String customerId;
   final PurchasedDocumentary documentary;
   final double price;
   final DateTime purchaseDate;
-  final DateTime? expirationDate;
+  final ExpirationDate expirationDate;
 
   const OrderPersisted({
     required this.id,
@@ -18,17 +21,18 @@ class OrderPersisted {
   });
 
   factory OrderPersisted.fromMap(Map<String, dynamic> map, String documentId) {
-    final expirationDate = map['expirationDate'] as Timestamp?;
+    final purchaseTimestamp = map['purchaseDate'] as Timestamp;
+    final expirationTimestamp = map['expirationDate'] as Timestamp?;
+
     return OrderPersisted(
       id: documentId,
       customerId: map['customerId'] as String,
       documentary: PurchasedDocumentary.fromMap(map['documentary']),
       price: (map['price'] as num).toDouble(),
-      purchaseDate: DateTime.fromMillisecondsSinceEpoch(
-          (map['purchaseDate'] as Timestamp).millisecondsSinceEpoch),
-      expirationDate: expirationDate == null
-          ? null
-          : DateTime.fromMillisecondsSinceEpoch((expirationDate).millisecondsSinceEpoch),
+      purchaseDate: purchaseTimestamp.toDateTime(),
+      expirationDate: expirationTimestamp == null
+          ? const ExpirationDate.infinite()
+          : ExpirationDate(expirationTimestamp.toDateTime()),
     );
   }
 }
