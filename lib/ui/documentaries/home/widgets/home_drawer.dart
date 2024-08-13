@@ -18,8 +18,16 @@ class HomeDrawer extends StatelessWidget {
         builder: (context, state) {
           return ListView(
             children: [
-              const DrawerHeader(
-                child: Placeholder(),
+              DrawerHeader(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox.square(
+                      dimension: 100,
+                      child: Image.asset('assets/logo.png'),
+                    ),
+                  ],
+                ),
               ),
               if (state.isAuthenticated) ...[
                 ListTile(
