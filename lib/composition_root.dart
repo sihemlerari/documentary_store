@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -20,7 +22,17 @@ import 'modules/documentary_catalog/infrastructure/documentary_summary_data_sour
 import 'modules/orders/application/ports/order_summary_data_source.dart';
 import 'modules/orders/application/usecases/get_orders.dart';
 import 'modules/orders/infrastructure/order_summary_data_source_impl.dart';
-import 'ui/checkout/widgets/order_summary/cubit/order_summary_cubit.dart';
+import 'modules/payment/application/ports/checkout_session_provider.dart';
+import 'modules/payment/application/ports/payment_intent_provider.dart';
+import 'modules/payment/application/usecases/create_checkout_session.dart';
+import 'modules/payment/application/usecases/create_payment_intent.dart';
+import 'modules/payment/infrastructure/chargily_checkout_session_provider.dart';
+import 'modules/payment/infrastructure/stripe_payment_intent_provider.dart';
+import 'modules/shared/domain/clock/clock.dart';
+import 'modules/shared/domain/clock/default_clock.dart';
+import 'ui/checkout/cubits/order_summary/order_summary_cubit.dart';
+import 'ui/checkout/cubits/payment/chargily/chargily_payment_cubit.dart';
+import 'ui/checkout/cubits/payment/stripe/stripe_payment_cubit.dart';
 import 'ui/core/auth/cubit/auth_cubit.dart';
 import 'ui/documentaries/documentary_detail/cubit/documentary_detail_cubit.dart';
 import 'ui/documentaries/home/cubit/documentaries_cubit.dart';
@@ -57,6 +69,9 @@ void configureDependencies() {
 
   getIt.registerLazySingleton(() => GetOrders(getIt<OrderSummaryDataSource>()));
 
+  getIt.registerLazySingleton(() => CreatePaymentIntent(getIt<PaymentIntentProvider>()));
+  getIt.registerLazySingleton(() => CreateCheckoutSession(getIt<CheckoutSessionProvider>()));
+
   // Repositories, Gateways & Data sources
   getIt.registerLazySingleton<AuthenticationGateway>(() => AuthenticationGatewayImpl(
         getIt<FirebaseAuth>(),
@@ -74,10 +89,40 @@ void configureDependencies() {
 
   getIt.registerLazySingleton<OrderSummaryDataSource>(() => OrderSummaryDataSourceImpl(
         getIt<FirebaseFirestore>(),
+        getIt<Clock>(),
       ));
 
   // External
   getIt.registerLazySingleton(() => FirebaseAuth.instance);
   getIt.registerLazySingleton(() => GoogleSignIn());
   getIt.registerLazySingleton(() => FirebaseFirestore.instance);
+  getIt.registerLazySingleton(() => FirebaseFunctions.instance);
+
+  // Other
+  getIt.registerLazySingleton<Clock>(() => DefaultClock());
+
+  // Payment gateway specific dependencies
+  const paymentGateway = String.fromEnvironment('PAYMENT_GATEWAY');
+  if (paymentGateway == 'stripe') {
+    _setupStripeDependencies();
+  } else if (paymentGateway == 'chargily') {
+    _setupChargilyDependencies();
+  } else {
+    throw Exception('Invalid payment gateway configuration');
+  }
+}
+
+void _setupStripeDependencies() {
+  getIt.registerFactory(() => StripePaymentCubit(getIt<CreatePaymentIntent>(), getIt<Stripe>()));
+  getIt.registerLazySingleton<PaymentIntentProvider>(
+      () => StripePaymentIntentProvider(getIt<FirebaseFunctions>()));
+
+  Stripe.publishableKey = const String.fromEnvironment('STRIPE_PUBLISHABLE_KEY');
+  getIt.registerLazySingleton(() => Stripe.instance);
+}
+
+void _setupChargilyDependencies() {
+  getIt.registerFactory(() => ChargilyPaymentCubit(getIt<CreateCheckoutSession>()));
+  getIt.registerLazySingleton<CheckoutSessionProvider>(
+      () => ChargilyCheckoutSessionProvider(getIt<FirebaseFunctions>()));
 }
