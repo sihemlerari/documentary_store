@@ -47,7 +47,14 @@ async function handleSuccessfulPayment(paymentIntent: Stripe.PaymentIntent) {
   await createOrder({
     customerId: paymentIntent.metadata.customerId,
     documentary,
-    amount: paymentIntent.amount,
+    amount: convertToUsd(paymentIntent.amount, paymentIntent.currency),
     paymentId: paymentIntent.id,
   });
+}
+
+function convertToUsd(amount: number, currency: string): number {
+  if (currency !== "usd") {
+    throw new HttpsError("invalid-argument", "Only USD currency is supported.");
+  }
+  return amount / 100;
 }
