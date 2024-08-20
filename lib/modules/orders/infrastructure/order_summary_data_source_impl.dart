@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../shared/domain/clock/clock.dart';
 import '../../shared/infrastructure/firestore_operation_mixin.dart';
 import '../application/order_summary.dart';
 import '../application/ports/order_summary_data_source.dart';
@@ -7,8 +8,9 @@ import 'order_persisted.dart';
 
 class OrderSummaryDataSourceImpl with FirestoreOperationMixin implements OrderSummaryDataSource {
   final FirebaseFirestore _firestore;
+  final Clock _clock;
 
-  OrderSummaryDataSourceImpl(this._firestore);
+  OrderSummaryDataSourceImpl(this._firestore, this._clock);
 
   @override
   Future<List<OrderSummary>> ordersOf(String customerId) async {
@@ -33,7 +35,7 @@ class OrderSummaryDataSourceImpl with FirestoreOperationMixin implements OrderSu
       id: persisted.id,
       documentaryName: persisted.documentary.name,
       purchaseDate: persisted.purchaseDate,
-      isExpired: expirationDate.isExpired(DateTime.now()),
+      isExpired: expirationDate.isExpired(_clock.now()),
     );
   }
 }
