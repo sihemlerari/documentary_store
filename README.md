@@ -79,6 +79,23 @@ A Flutter app to buy or rent digital documentaries. The app allows users to brow
     flutter run
     ```
 
+## Payment Gateway Integration
+
+To further enhance my learning experience, I integrated two payment gateways into the app: **Stripe** and **Chargily**. This gave me the flexibility to handle payments through either service, and I could switch between them by simply updating the configuration file.
+
+- **Stripe**: For Stripe, I used the **Stripe Flutter SDK**. It provides a seamless way to integrate payment processing within a Flutter app, supporting a wide range of payment methods, including credit cards and digital wallets.
+
+![Capture d'écran 2024-09-09 233522](https://github.com/user-attachments/assets/94c1de16-6e9e-4cc7-9290-60fa8a5b4e3f)
+
+- **Chargily**: Chargily is a payment gateway tailored for the Algerian market. It allows users to make payments through local services, such as CIB and EDAHABIA.
+
+![Screenshot_1726138739](https://github.com/user-attachments/assets/dc121ad5-1cb0-43a0-bc78-f279d2192268)
+
+## Hexagonal Architecture
+
+In this project, I chose to follow Hexagonal Architecture. This approach allowed me to maintain an agile mindset by developing the core business functionality without needing to commit to specific infrastructure choices upfront, resulting in better testability and maintainability.
+
+
 ## TDD Experience
 
 - No need to launch the app each time for testing, which saved time.
@@ -86,6 +103,10 @@ A Flutter app to buy or rent digital documentaries. The app allows users to brow
 - Served as useful documentation for the app's expected behavior.
 - Made refactoring easier and safer.
 - Since the app was relatively simple, I didn't fully experience the step-by-step problem-solving that TDD is known for in more complex projects.
+
+## Missing Features
+
+- Currently, the app does not support changing the displayed currency. Adding support for **DZD (Algerian Dinar)** would be beneficial, especially for Chargily payments.
 
 ## Contribution
 
