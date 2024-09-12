@@ -47,7 +47,7 @@ class HomeHeader extends StatelessWidget {
         ),
         gapH8,
         Text(
-          'Dive into a world of exploration',
+          'documentaries that inspire and educate',
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ],
