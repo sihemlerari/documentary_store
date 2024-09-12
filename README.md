@@ -2,7 +2,7 @@
 
 A Flutter app to buy or rent digital documentaries. The app allows users to browse through a selection of documentaries, make payments securely using Stripe or Chargily, and access their purchased or rented content via email links. Built with Firebase as the backend to handle authentication, database storage, and cloud functions for payment processing.
 
-**Note**: This app is built for learning purposes, and I do not intend to publish it to the app stores. The project uses the free version of Firebase and follows the Hexagonal Architecture for better testability and maintainability.
+**Note**: This app is built for learning purposes, and I do not intend to publish it to the app stores. The project uses the free version of Firebase and the test mode of both Stripe and Chargily payment gateways.
 
 ## Features
 
