@@ -10,6 +10,7 @@ A Flutter app to buy or rent digital documentaries. The app allows users to brow
 - Users can choose between buying or renting documentaries.
 - Secure payment processing using Stripe or Chargily.
 - Upon successful payment, a link to access the movie is sent to the user's email.
+- An order will be marked as **expired** if the documentary was rented and 48 hours have passed since the purchase.
 
 ## Screenshots
 
