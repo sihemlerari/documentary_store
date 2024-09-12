@@ -16,12 +16,13 @@ A Flutter app to buy or rent digital documentaries. The app allows users to brow
 ![Screenshot_1725915273](https://github.com/user-attachments/assets/63964185-5909-487f-aa32-0bd1442ebaab)
 ![Screenshot_1725915364](https://github.com/user-attachments/assets/ec32cd10-a5dd-48a1-b139-505881c32de8)
 ![Screenshot_1725915368](https://github.com/user-attachments/assets/01600728-d556-430a-806a-cd6aeed793c3)
-![Screenshot_1725915962](https://github.com/user-attachments/assets/21e16045-bdef-4cf5-a41f-5f2d11163198)
 ![Screenshot_1725916150](https://github.com/user-attachments/assets/fca3884a-79c9-4d74-afa5-88f20a11a13e)
 ![Screenshot_1726093543](https://github.com/user-attachments/assets/8aa17d3a-f676-4371-a624-c8949ef5203b)
 ![Screenshot_1725916158](https://github.com/user-attachments/assets/0a88c7b1-fbb1-49fe-8018-5aaa530c4083)
 ![Screenshot_1725916163](https://github.com/user-attachments/assets/0eebeb2e-b2ed-4d0a-ab4f-a64866427bf8)
 ![Screenshot_1725916189](https://github.com/user-attachments/assets/4e92a633-77f3-4643-96dd-e944bf20a462)
+![Screenshot_1726176969](https://github.com/user-attachments/assets/abf4b47b-26fe-4a6a-977d-17e5b1354c8f)
+
 
 ## Tech Stack
 
